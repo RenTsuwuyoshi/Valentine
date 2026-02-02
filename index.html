@@ -23,8 +23,8 @@
 
     #buttons {
       position: relative;
-      height: 200px;
       margin-top: 30px;
+      display: inline-block; /* Buttons nebeneinander */
     }
 
     button {
@@ -35,6 +35,7 @@
       cursor: pointer;
       transition: all 0.3s ease;
       touch-action: manipulation;
+      margin: 0 10px; /* Abstand zwischen JA und NEIN */
     }
 
     /* JA Button */
@@ -53,12 +54,11 @@
 
     /* NEIN Button */
     #noBtn {
-      position: absolute;
       background: #ddd;
       color: #444;
-      left: 50%;
-      transform: translateX(-50%);
-      top: 60px;
+      position: absolute; /* für flucht bei hover */
+      top: 0;
+      left: 120px; /* Startposition neben JA-Button */
     }
 
     /* GIF */
@@ -129,9 +129,9 @@
 </head>
 <body>
 
-  <h1>Hallo mein Solnyschka ❤️</h1>
-  <p>Auch wenn wir schon einen Plan haben, wollte ich dir etwas besonderes machen!</p>
-  <h2>Willst du hiermit mein Valentinstags-Date sein? 💐</h2>
+  <h1>Hey du ❤️</h1>
+  <p>Ich hab da eine kleine, wichtige Frage…</p>
+  <h2>Willst du mein Valentinstags-Date sein? 💐</h2>
 
   <div class="gif-container">
     <img src="https://media.tenor.com/1z8zKkJvG5AAAAAC/bears-drinking-cocktails.gif" 
@@ -146,13 +146,11 @@
   <p id="antwort"></p>
   <p id="liebe"></p>
 
-  <!-- Musik optional -->
-  <!-- <audio id="music" src="DEIN_MUSIKLINK_HIER.mp3"></audio> -->
-
   <script>
     const yesBtn = document.getElementById("yesBtn");
     const noBtn = document.getElementById("noBtn");
 
+    // Nein-Button springt nur bei Hover oder Touch
     function moveNo() {
       const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
       const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 100);
@@ -177,7 +175,6 @@
       }
     }
 
-    // Konfetti erzeugen
     function createConfetti() {
       const conf = document.createElement("div");
       conf.classList.add("confetti");
@@ -200,15 +197,13 @@
       document.getElementById("antwort").innerHTML = 
         "Dann freue ich mich sehr auf Steak, Cocktails und einen schön ausklingen Abend💞";
       document.getElementById("liebe").innerHTML = "Ich liebe dich 💞";
-      spawnManyHearts(50);  // viele Herzen
-      spawnConfetti(50);    // Konfetti
-
-      // Optionale Musik
-      // const music = document.getElementById("music");
-      // music.play();
+      spawnManyHearts(50);
+      spawnConfetti(50);
     }
 
+    // Hintergrund-Herzen regelmäßig
     setInterval(createHeart, 400);
   </script>
+
 </body>
 </html>
