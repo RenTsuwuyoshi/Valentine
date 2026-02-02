@@ -1,39 +1,43 @@
 <!DOCTYPE html>
-index.html
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Eine wichtige Frage 💖</title>
+  <title>Valentinsüberraschung 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     body {
       font-family: "Arial", sans-serif;
       background: linear-gradient(180deg, #ffe6eb, #ffd6e0);
       text-align: center;
-      padding-top: 100px;
+      padding: 50px 10px 100px 10px;
       overflow: hidden;
+      margin: 0;
+      position: relative;
     }
 
     h1, h2, p {
       color: #b3003b;
+      margin: 15px 0;
     }
 
     #buttons {
       position: relative;
       height: 200px;
-      margin-top: 40px;
+      margin-top: 30px;
     }
 
     button {
-      font-size: 20px;
+      font-size: 18px;
       padding: 14px 30px;
       border-radius: 30px;
       border: none;
       cursor: pointer;
       transition: all 0.3s ease;
+      touch-action: manipulation;
     }
 
-    /* 💖 JA BUTTON */
+    /* JA Button */
     #yesBtn {
       background: #ff4d6d;
       color: white;
@@ -47,74 +51,115 @@ index.html
       100% { transform: scale(1); }
     }
 
-    /* 🙈 NEIN BUTTON */
+    /* NEIN Button */
     #noBtn {
       position: absolute;
       background: #ddd;
       color: #444;
-      left: 150px;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 60px;
     }
 
-    /* ❤️ HERZEN */
+    /* GIF */
+    .gif-container {
+      margin: 30px auto;
+      max-width: 80%;
+    }
+
+    .gif-container img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 20px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+      animation: floatGif 3s ease-in-out infinite;
+    }
+
+    @keyframes floatGif {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    /* Herzen */
     .heart {
       position: absolute;
       bottom: -20px;
       font-size: 20px;
       animation: floatUp 6s linear infinite;
       opacity: 0.7;
+      pointer-events: none;
     }
 
     @keyframes floatUp {
-      0% {
-        transform: translateY(0) scale(1);
-        opacity: 0;
-      }
-      10% {
-        opacity: 0.8;
-      }
-      100% {
-        transform: translateY(-110vh) scale(1.5);
-        opacity: 0;
-      }
+      0% { transform: translateY(0) scale(1); opacity: 0; }
+      10% { opacity: 0.8; }
+      100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
+    }
+
+    /* Konfetti */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: red;
+      opacity: 0.9;
+      pointer-events: none;
+      animation: confettiFall linear forwards;
+    }
+
+    @keyframes confettiFall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+
+    #antwort, #liebe {
+      font-size: 18px;
+      margin-top: 20px;
+      color: #b3003b;
+    }
+
+    @media (max-width: 500px) {
+      button { font-size: 16px; padding: 12px 25px; }
+      #buttons { height: 160px; }
+      .gif-container img { max-width: 90%; }
+      #antwort, #liebe { font-size: 16px; }
     }
   </style>
 </head>
 <body>
 
-  <h1>Hey du ❤️</h1>
-  <p>Ich hab da eine kleine, wichtige Frage…</p>
-  <h2>Willst du mein Valentinstags-Date sein? 💐</h2>
+  <h1>Hallo mein Solnyschka ❤️</h1>
+  <p>Auch wenn wir schon einen Plan haben, wollte ich dir etwas besonderes machen!</p>
+  <h2>Willst du hiermit mein Valentinstags-Date sein? 💐</h2>
+
+  <div class="gif-container">
+    <img src="https://media.tenor.com/1z8zKkJvG5AAAAAC/bears-drinking-cocktails.gif" 
+         alt="Zwei Bärchen essen Steak und trinken Cocktails">
+  </div>
 
   <div id="buttons">
     <button id="yesBtn" onclick="yes()">JA 😍</button>
-    <button id="noBtn" onmouseover="moveNo()">Nein 🙈</button>
+    <button id="noBtn" onmouseover="moveNo()" ontouchstart="moveNo()">Nein 🙈</button>
   </div>
 
   <p id="antwort"></p>
+  <p id="liebe"></p>
+
+  <!-- Musik optional -->
+  <!-- <audio id="music" src="DEIN_MUSIKLINK_HIER.mp3"></audio> -->
 
   <script>
-    const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
 
     function moveNo() {
-      const x = Math.random() * (window.innerWidth - 120);
-      const y = Math.random() * (window.innerHeight - 120);
+      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 100);
       noBtn.style.left = x + "px";
       noBtn.style.top = y + "px";
-
-      // Ja-Button wächst bei jedem Versuch
-      yesBtn.style.transform = "scale(1.2)";
-      setTimeout(() => {
-        yesBtn.style.transform = "scale(1.08)";
-      }, 200);
     }
 
-    function yes() {
-      document.getElementById("antwort").innerHTML =
-        "YESSS 🥰❤️ Ich freu mich riesig auf unseren Valentinstag!";
-    }
-
-    /* ❤️ Herzen erzeugen */
     function createHeart() {
       const heart = document.createElement("div");
       heart.classList.add("heart");
@@ -123,14 +168,47 @@ index.html
       heart.style.fontSize = (15 + Math.random() * 20) + "px";
       heart.style.animationDuration = (4 + Math.random() * 4) + "s";
       document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 8000);
+    }
 
-      setTimeout(() => {
-        heart.remove();
-      }, 8000);
+    function spawnManyHearts(count) {
+      for (let i = 0; i < count; i++) {
+        setTimeout(createHeart, i * 50);
+      }
+    }
+
+    // Konfetti erzeugen
+    function createConfetti() {
+      const conf = document.createElement("div");
+      conf.classList.add("confetti");
+      conf.style.left = Math.random() * 100 + "vw";
+      conf.style.backgroundColor = `hsl(${Math.random()*360}, 100%, 50%)`;
+      conf.style.width = (5 + Math.random()*10) + "px";
+      conf.style.height = conf.style.width;
+      conf.style.animationDuration = (3 + Math.random()*3) + "s";
+      document.body.appendChild(conf);
+      setTimeout(() => conf.remove(), 4000);
+    }
+
+    function spawnConfetti(count) {
+      for (let i=0; i<count; i++) {
+        setTimeout(createConfetti, i*30);
+      }
+    }
+
+    function yes() {
+      document.getElementById("antwort").innerHTML = 
+        "Dann freue ich mich sehr auf Steak, Cocktails und einen schön ausklingen Abend💞";
+      document.getElementById("liebe").innerHTML = "Ich liebe dich 💞";
+      spawnManyHearts(50);  // viele Herzen
+      spawnConfetti(50);    // Konfetti
+
+      // Optionale Musik
+      // const music = document.getElementById("music");
+      // music.play();
     }
 
     setInterval(createHeart, 400);
   </script>
-
 </body>
 </html>
